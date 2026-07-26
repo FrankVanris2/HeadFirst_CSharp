@@ -11,7 +11,7 @@
         {
             AnimalButtons.IsVisible = true;
             PlayAgainButton.IsVisible = false;
-
+            Console.WriteLine("testing push");
             List<string> animalEmoji = [
                 "🐶", "🐰", 
                 "🐱", "😺",
