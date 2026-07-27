@@ -1,4 +1,6 @@
-﻿namespace AnimalMatchingGame
+﻿using Microsoft.Maui.Animations;
+
+namespace AnimalMatchingGame
 {
     public partial class MainPage : ContentPage
     {
@@ -29,6 +31,28 @@
                 buttons.Text = nextEmoji;
                 animalEmoji.RemoveAt(index);
             }
+
+            Dispatcher.StartTimer(TimeSpan.FromSeconds(.1), TimerTick);
+        }
+
+
+        int tenthsOfSecondsElapsed = 0;
+        private bool TimerTick()
+        {
+            if (!this.IsLoaded) return false;
+
+            tenthsOfSecondsElapsed++;
+
+            TimeElapsed.Text = "Time elapsed: " +
+                (tenthsOfSecondsElapsed / 10F).ToString("0.0s");
+
+            if (PlayAgainButton.IsVisible)
+            {
+                tenthsOfSecondsElapsed = 0;
+                return false;
+            }
+
+            return true;
         }
 
         Button lastClicked;
