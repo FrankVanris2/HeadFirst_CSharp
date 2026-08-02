@@ -41,6 +41,50 @@
             <Label x:Name="EnteredText"
                    SemanticProperties.Description="The text that the user entered" 
                    BackgroundColor="Gold" Margin="0,0,0,20" />
+
+            <Stepper x:Name="StepperCounter" Increment="1"
+                     SemanticProperties.Hint="Lets you increment and decrement a value"
+                     ValueChanged="Stepper_ValueChanged"/>
+            
+            <Label Text="Here's the stepper value:" />
+            
+            <Label x:Name="StepperValue"
+                   SemanticProperties.Description="The value of the stepper"
+                   BackgroundColor="LightBlue" Margin="0,0,0,20" />
+
+            <Slider Minimum="0" Maximum="1" 
+                    SemanticProperties.Hint="Lets you select a value between 0 and 1"
+                    ValueChanged="Slider_ValueChanged"/>
+            
+            <Label Text="Here's the slider value:" />
+
+            <Label x:Name="SliderValue"
+                   SemanticProperties.Description="The value of the slider"
+                   BackgroundColor="LightBlue" Margin="0,0,0,20" />
+
+            <HorizontalStackLayout Spacing="20">
+                <VerticalStackLayout>
+                    <Label Text="Pick a bird"
+                           SemanticProperties.Description="Pick a bird"/>
+
+                    <Picker x:Name="BirdPicker"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="Some birds"
+                           SemanticProperties.Description="A list of birds"/>
+
+                    <Label x:Name="Birds"
+                           Padding="10" MinimumWidthRequest="150"
+                           TextColor="White" BackgroundColor="DarkBlue"
+                           SemanticProperties.Description="Shows the added birds" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+            <Button x:Name="AddBird" Text="Add a bird" Margin="0, 0, 0, 20"
+                    SemanticProperties.Hint="Adds a bird"
+                    Clicked="AddBird_Clicked"/>
+
         </VerticalStackLayout>
     </ScrollView>
 
