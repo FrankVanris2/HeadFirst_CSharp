@@ -4,8 +4,10 @@ using System.Text;
 
 namespace BeehiveProject.Constants
 {
-    public class Constants
+    static class Constants
     {
+        public const decimal INITIAL_HONEY = 25m;
+        public const decimal INITIAL_NECTAR = 100m;
         public const decimal QUEEN_COST_PER_SHIFT = 2.15m;
         public const decimal EGGS_PER_SHIFT = 0.45m;
         public const decimal LOW_LEVEL_WARNING = 10m;
