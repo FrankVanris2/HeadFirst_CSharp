@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BeehiveProject.HoneyManagement;
 
 namespace BeehiveProject.BeeFolder
 {
@@ -19,7 +20,7 @@ namespace BeehiveProject.BeeFolder
 
         public override bool WorkTheNextShift()
         {
-            HoneyVault.ReportEggConversion(Constants.Constants.CARE_PROGRESS_PER_SHIFT);
+            queen.ReportEggConversion(Constants.Constants.CARE_PROGRESS_PER_SHIFT);
             return base.WorkTheNextShift();
         }
     }

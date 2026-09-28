@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BeehiveProject.HoneyManagement;
 
 namespace BeehiveProject.BeeFolder
 {
-    class Bee
+    abstract class Bee
     {
-        public virtual decimal CostPerShift { get; }
+        public abstract decimal CostPerShift { get; }
 
         public string Job { get; private set; }
 

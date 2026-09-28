@@ -1,65 +1,37 @@
-﻿SafeOwner owner = new SafeOwner();
-Safe safe = new Safe();
-
-Locksmith calledAsLocksmith = new Locksmith();
-calledAsLocksmith.OpenSafe(safe, owner);
-
-JewelThief jewelThief = new JewelThief();
-jewelThief.OpenSafe(safe, owner);
-Console.ReadKey(true);
+﻿Console.WriteLine(new Venus().MissionInfo());
+Console.WriteLine(new Mars().MissionInfo());
 
 
-class Safe
+abstract class PlanetMission
 {
-    private string contents = "precious jewels";
-    private string safeCombination = "12345";
+    protected float fuelPerkm;
+    protected long kmPerHour;
+    protected long kmToPlanet;
 
-    public string Open(string combination)
+    public string MissionInfo()
     {
-        if (combination == safeCombination) return contents;
-        return "";   
-    }
-
-    public void PickLock(Locksmith lockpicker)
-    {
-        lockpicker.Combination = safeCombination;
+        long fuel = (long)(kmToPlanet * fuelPerkm);
+        long time = kmToPlanet / kmPerHour;
+        return $"We'll burn {fuel} units of fuel in {time} hours";
     }
 }
 
-class SafeOwner
+class Mars : PlanetMission
 {
-    private string valuables = "";
-    
-    public void ReceiveContents(string safeContents)
+    public Mars()
     {
-        valuables = safeContents;
-        Console.WriteLine($"Thank you for returning my {valuables}!");
+        kmToPlanet = 92000000;
+        fuelPerkm = 1.73f;
+        kmPerHour = 37000;
     }
 }
 
-class Locksmith
+class Venus : PlanetMission
 {
-    public void OpenSafe(Safe safe, SafeOwner owner)
+    public Venus()
     {
-        safe.PickLock(this);
-        string safeContents = safe.Open(Combination);
-        ReturnContents(safeContents, owner);
-    }
-
-    public string Combination { private get; set; } = "";
-
-    protected virtual void ReturnContents(string safeContents, SafeOwner owner)
-    {
-        owner.ReceiveContents(safeContents);
-    }
-}
-
-class JewelThief : Locksmith
-{
-    private string stolenJewels = "";
-    protected override void ReturnContents(string safeContents, SafeOwner owner)
-    {
-        stolenJewels = safeContents;
-        Console.WriteLine($"I'm stealing the jewels! I stole: {stolenJewels}!");
+        kmToPlanet = 41000000;
+        fuelPerkm = 2.11f;
+        kmPerHour = 29500;
     }
 }
