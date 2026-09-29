@@ -7,11 +7,17 @@ public class OneBallBehaviour : MonoBehaviour
     public float ZRotation = 0;
     public float DegreesPerSecond = 180;
 
+    static int BallCount = 0;
+    public int BallNumber;
+
 
     void Start()
     {
         transform.position = new Vector3(3 - Random.value * 6,
             3 - Random.value * 6, 3 - Random.value * 6);
+        BallCount++;
+        BallNumber = BallCount;
+         
     }
 
     void Update()
