@@ -18,10 +18,8 @@ namespace BeehiveProject
             };
 
             jobPicker.SelectedIndex = 0;
-
-            UpdateStatusAndEnableAssignButton();
-
             Dispatcher.StartTimer(TimeSpan.FromSeconds(1.5), TimerTick);
+            BindingContext = queen;
         }
 
         private bool TimerTick()
@@ -33,38 +31,22 @@ namespace BeehiveProject
             return true;
         }
 
-        private void UpdateStatusAndEnableAssignButton()
-        {
-            StatusReport.Text = queen.StatusReport;
-            AssignJobButton.IsEnabled = queen.CanAssignWorkers;
-        }
-
         private void AssignJobButton_Clicked(object sender, EventArgs e)
         {
             queen.AssignBee(jobPicker.SelectedItem.ToString());
-            UpdateStatusAndEnableAssignButton();
         }
 
         private void WorkShiftButton_Clicked(object sender, EventArgs e)
         {
             if (!queen.WorkTheNextShift())
-            {
-                WorkShiftButton.IsVisible = false;
-                OutOfHoneyButton.IsVisible = true;
                 SemanticScreenReader.Default.Announce(OutOfHoneyButton.Text);
-            }
-
-            UpdateStatusAndEnableAssignButton();
-            SemanticScreenReader.Default.Announce(queen.StatusReport);
         }
 
         private void OutOfHoneyButton_Clicked(object sender, EventArgs e)
         {
             HoneyVault.Reset();
             queen = new Queen();
-            WorkShiftButton.IsVisible = true;
-            OutOfHoneyButton.IsVisible = false;
-            UpdateStatusAndEnableAssignButton();
+            BindingContext = queen;
         }
     }
 }

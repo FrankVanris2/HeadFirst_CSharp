@@ -2,14 +2,25 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel;
 
 namespace BeehiveProject.BeeFolder
 {
-    class Queen : Bee
+    class Queen : Bee, INotifyPropertyChanged
     {
         private Bee[] workers = new Bee[0];
         private decimal eggs = 0;
         private decimal unassignedWorkers = 3;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public bool HiveIsRunning { get; private set; } = true;
+        public bool OutOfHoney { get { return !HiveIsRunning; } }
 
         public bool CanAssignWorkers { get { return unassignedWorkers >= 1; } }
 
@@ -63,6 +74,11 @@ namespace BeehiveProject.BeeFolder
 
             if (!allWorkersDidTheirJobs)
                 StatusReport += "\nWARNING: NOT ALL WORKERS DID THEIR JOBS";
+
+            OnPropertyChanged("StatusReport");
+            OnPropertyChanged("CanAssignWorkers");
+            OnPropertyChanged("HiveIsRunning");
+            OnPropertyChanged("OutOfHoney");
         }
 
         private string WorkerStatus(string job)
@@ -97,7 +113,8 @@ namespace BeehiveProject.BeeFolder
             }
             HoneyVault.ConsumeHoney(unassignedWorkers * Constants.Constants.HONEY_PER_UNASSIGNED_WORKER);
             UpdateStatusReport(allWorkersDidTheirJobs);
-            return base.WorkTheNextShift();
+            HiveIsRunning = base.WorkTheNextShift();
+            return HiveIsRunning;
         }
 
 
