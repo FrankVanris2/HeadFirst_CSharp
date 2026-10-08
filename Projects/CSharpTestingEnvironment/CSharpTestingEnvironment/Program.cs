@@ -1,37 +1,16 @@
-﻿Console.WriteLine(new Venus().MissionInfo());
-Console.WriteLine(new Mars().MissionInfo());
+﻿Card aceOfSpades = new Card("Ace", "Spades");
+Console.WriteLine(aceOfSpades.Name);
 
-
-abstract class PlanetMission
+enum Suits
 {
-    protected float fuelPerkm;
-    protected long kmPerHour;
-    protected long kmToPlanet;
-
-    public string MissionInfo()
-    {
-        long fuel = (long)(kmToPlanet * fuelPerkm);
-        long time = kmToPlanet / kmPerHour;
-        return $"We'll burn {fuel} units of fuel in {time} hours";
-    }
+    Diamonds,
+    Clubs,
+    Hearts,
+    Spades,
 }
-
-class Mars : PlanetMission
+class Card(string value, string suit)
 {
-    public Mars()
-    {
-        kmToPlanet = 92000000;
-        fuelPerkm = 1.73f;
-        kmPerHour = 37000;
-    }
-}
-
-class Venus : PlanetMission
-{
-    public Venus()
-    {
-        kmToPlanet = 41000000;
-        fuelPerkm = 2.11f;
-        kmPerHour = 29500;
-    }
+    public string Value { get { return value; } }
+    public string Suit { get { return suit; } }
+    public string Name { get { return $"{Value} of {Suit}"; } }
 }
