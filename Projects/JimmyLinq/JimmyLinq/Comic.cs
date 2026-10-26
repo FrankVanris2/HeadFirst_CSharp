@@ -1,6 +1,6 @@
 ﻿
 namespace JimmyLinq;
-class Comic(string name, int issue)
+public class Comic(string name, int issue)
 {
     public string Name { get { return name;  } }
     public int Issue { get { return issue; } }

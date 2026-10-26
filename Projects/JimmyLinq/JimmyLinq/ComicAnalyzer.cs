@@ -4,25 +4,27 @@ using System.Text;
 
 namespace JimmyLinq
 {
-    static class ComicAnalyzer
+    public static class ComicAnalyzer
     {
-        private static PriceRange CalculatePriceRange(Comic comics)
+        private static PriceRange CalculatePriceRange(Comic comics, IReadOnlyDictionary<int, decimal> prices)
         {
-            if (Comic.Prices[comics.Issue] < 100)
+            if (prices[comics.Issue] < 100)
             {
                 return PriceRange.Cheap;
             }
-
-            return PriceRange.Expensive;
+            else
+            {
+                return PriceRange.Expensive;
+            }
         }
 
         public static IEnumerable<IGrouping<PriceRange, Comic>> GroupComicsByPrice(IEnumerable<Comic> comics, IReadOnlyDictionary<int, decimal> prices)
         {
-            var groups = from comic in comics
-                         group comic by CalculatePriceRange(comic) into priceGroup
-                         orderby priceGroup.Key
+            IEnumerable<IGrouping<PriceRange, Comic>> grouped = from comic in comics
+                         orderby prices[comic.Issue]
+                         group comic by CalculatePriceRange(comic, prices) into priceGroup
                          select priceGroup;
-            return groups;
+            return grouped;
         }
 
         public static IEnumerable<string> GetReviews(IEnumerable<Comic> comics, IEnumerable<Review> reviews)

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace JimmyLinq
 {
-    class Review(int issue, Critics critic, double score)
+    public class Review(int issue, Critics critic, double score)
     {
         public int Issue { get { return issue; } }
         

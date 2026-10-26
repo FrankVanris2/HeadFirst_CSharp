@@ -4,7 +4,7 @@ using System.Text;
 
 namespace JimmyLinq
 {
-    enum PriceRange
+    public enum PriceRange
     {
         Cheap,
         Expensive
